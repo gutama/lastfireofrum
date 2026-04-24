@@ -5,7 +5,7 @@ description: Create pages for "The Last Fire of Rūm" graphic novel adaptation. 
 
 # THE LAST FIRE OF RŪM — GRAPHIC NOVEL PRODUCTION BIBLE
 
-Version: 1.0
+Version: 1.1
 Production Model: B&W + Spot Color (3-accent system)
 Format: 18 issues × 24 story pages → 3 collected volumes
 
@@ -17,13 +17,13 @@ This document is the persistent memory for page-by-page graphic novel production
 
 ### When the user asks for a page:
 
-**Step 1 — Locate the page.** Determine issue number and page number. Check the issue-chapter map (§1) to find the source novel chapter and scene.
+**Step 1 — Locate the page.** Determine issue number and page number. Check the issue-chapter map (§1) to find the source novel chapter and scene, then resolve the output folder using §0.5.
 
 **Step 2 — Check the session log.** Read §16 (Session Log) for the last completed page, any open continuity risks, and the "next page start notes." If no log exists, ask the user where to begin.
 
 **Step 3 — Write the panel script.** Before drawing anything, output a panel script using the template in §3. The script defines panel count, layout, dialogue, captions, action descriptions, camera angles, accent color plan, and continuity notes. Show this to the user for approval.
 
-**Step 4 — Produce the page.** Generate the page as an SVG artifact matching the production specs in §5. Apply the color system (§7), lettering rules (§8), character designs (§10), object designs (§11), and environment rules (§9).
+**Step 4 — Produce the page.** Generate the page as an SVG artifact in the correct volume folder matching the production specs in §5. Apply the color system (§7), lettering rules (§8), character designs (§10), object designs (§11), and environment rules (§9).
 
 **Step 5 — Run the checklist.** Before presenting, verify against the per-page checklist (§4.5).
 
@@ -39,42 +39,173 @@ Check the page against §4 (page grammar), §7 (color system), §10 (characters)
 
 ---
 
+## 0.5) PROJECT FOLDER ROUTING
+
+The workspace already has four production folders:
+
+| Folder | Use |
+|--------|-----|
+| `Volume1/Issue01/` through `Volume1/Issue06/` | Story pages, issue beat sheets, and issue-specific extras for Issues 1-6 only |
+| `Volume2/Issue07/` through `Volume2/Issue12/` | Story pages, issue beat sheets, and issue-specific extras for Issues 7-12 only |
+| `Volume3/Issue13/` through `Volume3/Issue18/` | Story pages, issue beat sheets, and issue-specific extras for Issues 13-18 only |
+| `common/` | Shared, non-page production assets used across volumes or for another use: character sheets, object refs, palettes, templates, maps, glossary source files, style tests, and reusable backmatter source material |
+
+### Issue-to-folder resolver
+
+| Issues | Folder | Collected volume |
+|--------|--------|------------------|
+| 1-6 | `Volume1/` | Vol. I: Istanbul |
+| 7-12 | `Volume2/` | Vol. II: Tabriz Under Truce |
+| 13-18 | `Volume3/` | Vol. III: Fire Without Flame |
+
+### Routing rules
+
+- Never save issue story pages in `common/`.
+- Every issue must have its own folder: `Issue01`, `Issue02`, etc. Do not place issue files directly in a volume root.
+- Put reusable references in `common/`, even when first created for one issue.
+- Put volume-specific backmatter in that volume folder; put reusable source art or source notes for backmatter in `common/`.
+- Issue subfolders must contain their own `pages/` and `exports/` subfolders when production begins.
+- When a file belongs to both a volume and shared continuity, save the production file in the volume folder and a reusable reference copy or note in `common/`.
+
+---
+
 ## 1) ISSUE-CHAPTER MAP
 
-The novel has 81 chapters (0–80). The adaptation compresses into 18 issues × 24 pages = 432 story pages. Not every chapter gets equal space; some compress to 2 pages, some expand to 8+.
+The novel has 81 chapters (0–80). The adaptation uses the current approved plan: 18 issues × 24 story pages = 432 story pages. Each collected volume contains 6 issues / 144 story pages, plus 16-24 pages of backmatter.
 
-### Volume 1 — Istanbul (Issues 1–6)
+This map is authoritative for page planning and folder routing.
 
-| Issue | Chapters | Core content | Climax beat |
-|-------|----------|-------------|-------------|
-| 1 | 0–3 | Reza's death, Leyla finds father's notation, the wrong seal | Raid team enters |
-| 2 | 4–7 | The exchange, safe flat, half-leaf analysis, "not a prayer" | Rūm identification |
-| 3 | 8–12 | Token shape, Marcian enters, first Hagia Sophia threshold, the seam | Seam discovery |
-| 4 | 13–17 | Unlogged repair, the insert, Darius's hand, broker's fear, gallery route | Malhama spoken |
-| 5 | 18–22 | Marble angle, saved by Marcian, cipher note, quiet summons, old accusation | Kemal's disgrace revealed |
-| 6 | 23–24 | Attack under stone (Selim killed), eastbound | Operative scar confirmed — Istanbul blown |
+### Volume I — Istanbul / The Wrong Manuscript (Issues 1-6)
 
-### Volume 2 — The Route East (Issues 7–12)
+| Issue | Chapters | Working issue title | Core dramatic function |
+|-------|----------|---------------------|------------------------|
+| #1 | 0-3 | The Wrong Manuscript | Reza's escape, folio/token setup, Leyla examines manuscript, Kemal enters, raid hits |
+| #2 | 4-8 | Half a Leaf | Safe flat, torn leaf survives, text first read, "Not a prayer," token becomes a live problem |
+| #3 | 9-12 | The First Threshold | Marcian enters, token/building logic deepens, Hagia Sophia standing-point logic begins |
+| #4 | 13-16 | Darius's Hand | Unlogged repair, Darius insert, archival warning, Selim's fear, "Malhama" enters |
+| #5 | 17-20 | The Gallery Route | Gallery route, marble angle, patrol change, Marcian extraction, cipher note |
+| #6 | 21-24 | Eastbound | Quiet summons, old accusation, attack under stone, Selim dies with "Tabriz," departure east |
 
-| Issue | Chapters | Core content | Climax beat |
-|-------|----------|-------------|-------------|
-| 7 | 25–27 | Tabriz under truce, Reza's room, Narin introduced | Narin becomes indispensable |
-| 8 | 28–32 | Watched city, provincial archive, weighbridge, Daryabegi's offer, Persian claim | Daryabegi's grievance lands |
-| 9 | 33–36 | Blackout archive, wrong prophecy, Darius's refusal, kill list | "The Last Fire" named on Syriac card |
-| 10 | 37–41 | Isfahan, Armenian thread, Sister Helena, full title revealed, father's silence | Full title reveal + Darius letter |
-| 11 | 42–49 | Naqsh-e Rostam sequence: face/receive/turn, Kemal solves the turn | "NOT BELOW / FACE → RECEIVE → TURN" |
-| 12 | 50–52 | Receiver path, narrowing circle, THE BETRAYAL | Marcian's shutter descends — key pieces taken |
+Collected title: **The Last Fire of Rūm, Vol. I: Istanbul**. Story pages go in `Volume1/`.
 
-### Volume 3 — Return and Revelation (Issues 13–18)
+### Volume II — Tabriz / The Wrong Prophecy (Issues 7-12)
 
-| Issue | Chapters | Core content | Climax beat |
-|-------|----------|-------------|-------------|
-| 13 | 53–56 | After betrayal, middle way, Daryabegi's fracture, return to Istanbul | Alliance fractures and reforms |
-| 14 | 57–58 | Manufactured signs, first attack | Forged line used as public permission |
-| 15 | 59–63 | False routes, countermap, narrowest alliance, south service stair, holding point | "Hold there." |
-| 16 | 64–68 | Acoustic point, marble/prayer/light, Daryabegi arrives, chamber of leaves, true testament | Chamber opens — charter read |
-| 17 | 69–75 | Fraud archive, real payload, competing gospels of custody, building chooses nothing, final leaf | Ideological climax |
-| 18 | 76–80 | Access collapse, fire without flame, measured theft, ash on the sleeve, first refuge | Marcian's return + Leyla/Kemal beat + horizon opens |
+| Issue | Chapters | Working issue title | Core dramatic function |
+|-------|----------|---------------------|------------------------|
+| #7 | 25-29 | Tabriz Under Truce | Arrival in Tabriz, Reza's room, watched city, provincial archive atmosphere |
+| #8 | 30-34 | The Persian Claim | Weighbridge, Daryabegi's offer, blackout archive, wrong prophecy frame hardens |
+| #9 | 35-39 | Isfahan by Night | Darius's refusal, kill list, movement into deeper Iranian route, Sister Helena / Armenian thread |
+| #10 | 40-45 | The Face of Kings | Full title, father's silence, what the letter changed, escort, "Not Below" tension |
+| #11 | 46-50 | Kemal Solves the Turn | Wrong depth, unsettled plan, Kemal unlocks route logic, receiver path emerges |
+| #12 | 51-55 | The Betrayal | Narrowing circle, betrayal, aftermath, middle way, Daryabegi's fracture |
+
+Collected title: **The Last Fire of Rūm, Vol. II: Tabriz Under Truce**. Story pages go in `Volume2/`.
+
+### Volume III — Return / The Last Fire (Issues 13-18)
+
+| Issue | Chapters | Working issue title | Core dramatic function |
+|-------|----------|---------------------|------------------------|
+| #13 | 56-59 | Return to Istanbul | Return, manufactured signs, first attack, false routes |
+| #14 | 60-63 | The Countermap | Countermap, narrowest alliance, south service stair, holding point |
+| #15 | 64-67 | Chamber of Leaves | Acoustic point, marble-prayer-light, Daryabegi arrives, chamber discovery |
+| #16 | 68-71 | The Real Payload | True testament, fraud archive, real payload, Marcian's gospel of custody |
+| #17 | 72-76 | Narin's Mirror | Persia's demand, Narin's mirror, building chooses nothing, final leaf, access collapse |
+| #18 | 77-80 | Fire Without Flame | Measured theft, ash on the sleeve, first refuge, resolution |
+
+Collected title: **The Last Fire of Rūm, Vol. III: Fire Without Flame**. Story pages go in `Volume3/`.
+
+### Collected edition targets
+
+| Volume | Story pages | Backmatter target | Total target |
+|--------|-------------|-------------------|--------------|
+| Vol. I | 144 | 16-24 | 160-168 |
+| Vol. II | 144 | 16-24 | 160-168 |
+| Vol. III | 144 | 16-24 | 160-168 |
+
+Full series target: 432 story pages, about 480-510 pages including extras.
+
+### Strategic splash and spread budget
+
+Splashes are rare, controlled prestige beats. Across the full 18-issue run, target:
+
+- 12 full-page splashes
+- 4 double-page spreads
+- No routine action splashes unless the page is also doing scale, route revelation, or emotional aftermath
+
+Full-page splash candidates:
+
+1. Reza in blackout courtyard
+2. The torn manuscript under lamp in consultation room
+3. Raid explodes into the consultation room
+4. Hagia Sophia upper gallery first reveal
+5. Leyla holds token at the standing point
+6. Selim's death in the tunnel / "Tabriz" moment
+7. Arrival in Tabriz under truce-phase atmosphere
+8. Naqsh-e Rostam / major Persian monumental reveal
+9. Betrayal aftermath
+10. Return to Istanbul under false-route pressure
+11. Chamber of Leaves reveal
+12. Final refuge / aftermath image
+
+Double-page spread candidates:
+
+1. Hagia Sophia interior from upper gallery
+2. Tabriz urban spread under surveillance atmosphere
+3. Naqsh-e Rostam / "Not Below" sequence
+4. Chamber of Leaves / endgame architecture
+
+Double spreads are for scale, orientation, route revelation, or monumental atmosphere. Do not use a double spread for ordinary impact or dialogue escalation.
+
+### Key page-turn reveal bank
+
+Preserve these reveals as page-turn or page-end beats wherever the local page budget allows:
+
+1. Reza opens cylinder — contents revealed
+2. "Sophia."
+3. Leyla recognizes her father's notation
+4. Kemal says: "This isn't a seal."
+5. Raiders crash the consultation room
+6. The leaf tears
+7. "They ignored the money."
+8. "It is not a prayer."
+9. "Rūm."
+10. Token read as building-tool, not symbol
+11. Wall seam / first threshold appears
+12. Darius insert begins: "The most common error..."
+13. Selim says: "Malhama."
+14. Marcian says the dome was not the first refuge
+15. Yilmaz confrontation: "You fired me because I was right."
+16. Selim's dying word: "Tabriz."
+17. Daryabegi's real position / offer
+18. Wrong prophecy exposed as misuse
+19. Betrayal reveal
+20. Chamber of Leaves opens
+21. Fraud archive vs true testament
+22. The real payload
+23. Access collapse
+24. Fire Without Flame
+25. First Refuge ending
+
+Issue endings should usually land on one of these categories: geographic redirect, manuscript reinterpretation, betrayal, new threat layer, or object-function reveal.
+
+### Silent page bank
+
+Target 8-12 silent pages across the full series. Silent pages should re-center emotion, let architecture dominate, make the reader do interpretive work, or give weight after violence/revelation.
+
+Best candidates:
+
+1. Reza in blackout before drone sound
+2. Leyla examining manuscript for first time
+3. After the folio tears
+4. Safe flat first night: leaf, token, blood, silence
+5. Leyla testing token standing point in Hagia Sophia
+6. Tunnel aftermath / Selim dead below the grate
+7. Arrival page in Tabriz
+8. Reza's room / absence speaking
+9. After betrayal
+10. Chamber of Leaves opening
+11. Fire Without Flame sequence
+12. Final refuge / closing emotional page
 
 ### Page budget guidance per chapter type
 
@@ -402,6 +533,8 @@ Usage: Rarest. Appears in <5% of pages. Reserved for genuine monumental beats. I
 
 The book should feel like: *Criminal* meets *Asterios Polyp* in Istanbul, with the pacing discipline of Taniguchi.
 
+Compatibility note: the larger plan allows muted full color, black-and-white with spot color, or grayscale seinen. This production bible chooses the strongest prestige option as the default: black-and-white with selective spot color, while preserving the semi-realistic architectural thriller direction. If a later edition moves to muted full color, keep the same restrained palette logic and do not change the page grammar.
+
 ### 8.2 What to avoid
 
 - Cartoon exaggeration or superhero anatomy
@@ -706,15 +839,51 @@ Characters framed by architecture (doorways, arches, columns, window frames) sho
 
 ## 14) FILE NAMING
 
+All paths are relative to the project root.
+
 ### Page files
-`LFR_I[##]_P[###]_v[##].svg` — e.g., `LFR_I01_P001_v01.svg`
+
+Use the volume folder determined by §0.5:
+
+`Volume[1-3]/Issue[##]/pages/LFR_V[##]_I[##]_P[###]_v[##].svg`
+
+Example:
+
+`Volume1/Issue01/pages/LFR_V01_I01_P001_v01.svg`
 
 ### Export files
-`LFR_I[##]_P[###]_PRINT_v[##].tif`
-`LFR_I[##]_P[###]_WEB_v[##].jpg`
+
+`Volume[1-3]/Issue[##]/exports/LFR_V[##]_I[##]_P[###]_PRINT_v[##].tif`
+
+`Volume[1-3]/Issue[##]/exports/LFR_V[##]_I[##]_P[###]_WEB_v[##].jpg`
 
 ### Reference/design files
-`LFR_REF_[TYPE]_[NAME]_v[##]` — e.g., `LFR_REF_CHAR_Leyla_v02.svg`
+
+Shared references go in `common/`:
+
+`common/[type]/LFR_REF_[TYPE]_[NAME]_v[##].[ext]`
+
+Example:
+
+`common/characters/LFR_REF_CHAR_Leyla_v02.svg`
+
+### Beat sheets and issue planning
+
+Issue-specific planning files go beside the issue pages:
+
+`Volume[1-3]/Issue[##]/LFR_V[##]_I[##]_BeatSheet_v[##].md`
+
+Series-wide templates, style tests, and reusable planning aids go in `common/templates/` or `common/style-tests/`.
+
+### Backmatter
+
+Volume-specific backmatter pages:
+
+`Volume[1-3]/backmatter/LFR_V[##]_BACKMATTER_[TYPE]_[###]_v[##].[ext]`
+
+Reusable source material for maps, glossaries, route diagrams, character pages, manuscript notes, and location sketches:
+
+`common/backmatter-source/LFR_COMMON_[TYPE]_[NAME]_v[##].[ext]`
 
 ---
 
@@ -762,6 +931,7 @@ At the start of each new issue, check:
 SESSION: [date]
 ══════════════════════════════════
 Pages completed: [list]
+Files created/updated: [paths]
 Last panel state: [describe final panel of last completed page]
 
 CHARACTER STATES:
@@ -794,6 +964,7 @@ OPEN CONTINUITY RISKS:
 
 NEXT PAGE START NOTES:
 - Next page: Issue [##] / Page [##]
+- Output folder: [Volume1/Issue## or Volume2/Issue## or Volume3/Issue##]
 - Source: Chapter [##]
 - Must-keep beat: [the one thing this page must accomplish]
 - Must-keep visual: [the one image that must appear]
@@ -809,12 +980,14 @@ NEXT PAGE START NOTES:
 When starting any page, assume the following unless the user explicitly overrides:
 
 1. Read §16 (Session Log) first. If empty, ask the user where to begin.
-2. Write the panel script (§3 format) before producing any visual output.
-3. Maintain character appearances per §10 — do not drift between sessions.
-4. Maintain prop appearances per §11 — do not improvise visual changes.
-5. Apply color system per §7 — default to no accent color; add only when the scene earns it.
-6. Keep text density within the target range for the page type.
-7. Prioritize architecture, object handling, and page-turn tension.
-8. When unsure, choose clarity over flourish and tension over spectacle.
-9. After completing a page, update §16 before ending the session.
-10. Never generate a page without checking the previous page's end state.
+2. Resolve the output folder using §0.5 and the file name using §14.
+3. Write the panel script (§3 format) before producing any visual output.
+4. Maintain character appearances per §10 — do not drift between sessions.
+5. Maintain prop appearances per §11 — do not improvise visual changes.
+6. Apply color system per §7 — default to no accent color; add only when the scene earns it.
+7. Keep text density within the target range for the page type.
+8. Prioritize architecture, object handling, and page-turn tension.
+9. Save issue story pages under `Volume1/`, `Volume2/`, or `Volume3/`; save shared non-page assets under `common/`.
+10. When unsure, choose clarity over flourish and tension over spectacle.
+11. After completing a page, update §16 before ending the session.
+12. Never generate a page without checking the previous page's end state.
